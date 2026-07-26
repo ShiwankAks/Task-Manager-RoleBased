@@ -20,15 +20,15 @@ const userRouter = express.Router()
 userRouter.post("/add-task",verifyToken,authorizeRole("admin"),addTask)
 userRouter.delete("/delete/:id",verifyToken,authorizeRole("admin"),deleteTask)
 userRouter.delete("/delete-user/:userId",verifyToken,authorizeRole("admin"),deleteUser)
-userRouter.post("/change-role/:userId",verifyToken,authorizeRole("admin"),changeUserRole)
+userRouter.patch("/change-role/:userId",verifyToken,authorizeRole("admin"),changeUserRole)
 
 //  Admin and manager
 userRouter.get("/all-task",verifyToken,authorizeRole("admin","manager"), getAllTask)
 userRouter.get("/all-users",verifyToken,authorizeRole("admin","manager"),getUsers)
-userRouter.post("/change-priority/:id",verifyToken,authorizeRole("admin","manager"),changePriority)
+userRouter.patch("/change-priority/:id",verifyToken,authorizeRole("admin","manager"),changePriority)
 
 //  User Task
 userRouter.get("/my-task",verifyToken,authorizeRole("employee"),getUserTask)
-userRouter.post("/change-status/:taskId",verifyToken,authorizeRole("employee"),changeStatus)
+userRouter.patch("/change-status/:taskId",verifyToken,authorizeRole("employee"),changeStatus)
 
 export default userRouter

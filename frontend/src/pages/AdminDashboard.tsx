@@ -68,6 +68,8 @@ function AdminDashboard() {
     }
 
     const deleteTask = async (id: string) => {
+        const isConfirm = window.confirm("Are you sure you want to delete this task?")
+        if(!isConfirm) return;
         try {
             await taskService.deleteTask(id)
             getAllTask()
@@ -79,13 +81,6 @@ function AdminDashboard() {
 
     useEffect(() => {
         setIsLoading(true)
-        const role = localStorage.getItem("role")
-        if (role != "admin") {
-            setIsLoading(false)
-            toast.error("Please Login")
-            navigate("/")
-            return
-        }
         getAllTask()
     }, [])
 

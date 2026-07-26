@@ -1,10 +1,10 @@
-import axios from "axios"
 import React, { useState } from "react"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
+import { authService } from "../api/authService"
 
 
-const Api = import.meta.env.VITE_API_URL
+
 
 export const Signup = () => {
 
@@ -19,13 +19,7 @@ export const Signup = () => {
          e.preventDefault()
          setIsLoading(true)
         try {
-            await axios.post(Api+"/auth/register",
-                {
-                    username,
-                    email,
-                    password
-                }
-            )
+            await authService.signup(username, email, password)
             toast.success("Please Login")
             navigate("/login")
         } catch (error:any) {

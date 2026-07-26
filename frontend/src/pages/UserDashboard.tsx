@@ -63,9 +63,11 @@ function UserDashboard() {
               <h1 className="text-2xl font-semibold text-gray-500">No Tasks Assigned Yet</h1>
               <p className="text-gray-400 mt-2">When an admin assigns tasks to you, they will appear here.</p>
             </div>
-          ) : (task.map((data) => {
+          ) : (
+            <div className="grid gap-5 p-5">
+            {task.map((data) => {
             return (
-              <div className="grid gap-5 p-5">
+              
                 <div key={data._id} className="border rounded-lg p-5 bg-gray-200 shadow">
                   <h2 className="text-xl font-bold">{data.title}</h2>
                   <p className="mt-2">{data.description}</p>
@@ -85,9 +87,11 @@ function UserDashboard() {
                     </select>
                   </div>
                 </div>
-              </div>
+              
             )
-          }))}
+          })}
+          </div>
+          )}
 
       </div>
     </div>

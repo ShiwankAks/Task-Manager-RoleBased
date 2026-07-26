@@ -44,6 +44,7 @@ const taskSchema = new Schema<ITask>(
     priority: {
       type: String,
       enum: Object.values(TaskPriority),
+      required:true,
     },
     createdBy: {
       type: Schema.Types.ObjectId,

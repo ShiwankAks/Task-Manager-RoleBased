@@ -11,9 +11,10 @@ const getUsers = async (req: Request, res: Response) => {
       data: users,
     });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while fetching task " + error,
+      message: "Server error while fetching task",
     });
   }
 };
@@ -29,9 +30,10 @@ const deleteUser = async (req: Request, res: Response) => {
 
     return res.status(200).json({ message: "User deleted Successfully" });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while deleting User " + error,
+      message: "Server error while deleting User",
     });
   }
 };
@@ -59,9 +61,10 @@ const changeUserRole = async (req: Request, res: Response) => {
       .status(200)
       .json({ success: true, message: "User role Updated Successfully" });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while changing User role " + error,
+      message: "Server error while changing User role ",
     });
   }
 };
@@ -102,9 +105,10 @@ const addTask = async (req: Request, res: Response) => {
       .status(201)
       .json({ success: true, message: "New Task Created ", task });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while adding task " + error,
+      message: "Server error while adding task ",
     });
   }
 };
@@ -116,9 +120,10 @@ const getAllTask = async (req: Request, res: Response) => {
       .populate("createdBy", "username");
     return res.status(200).json({ success: true, allTask });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while fetching task " + error,
+      message: "Server error while fetching task ",
     });
   }
 };
@@ -135,9 +140,10 @@ const deleteTask = async (req: Request, res: Response) => {
       message: "Task deleted successfully",
     });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while deleting task " + error,
+      message: "Server error while deleting task ",
     });
   }
 };
@@ -157,9 +163,10 @@ const changePriority = async (req: Request, res: Response) => {
       .status(200)
       .json({ success: true, message: "Priority changed", task });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while updating task " + error,
+      message: "Server error while updating task ",
     });
   }
 };
@@ -173,9 +180,10 @@ const getUserTask = async (req: Request, res: Response) => {
     // }
     return res.status(200).json({ success: true, tasks });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while fetching user task " + error,
+      message: "Server error while fetching user task ",
     });
   }
 };
@@ -197,9 +205,10 @@ const changeStatus = async (req: Request, res: Response) => {
     }
     return res.status(200).json({ success: true, task });
   } catch (error) {
+    console.error(error)
     return res.status(500).json({
       success: false,
-      message: "Server error while fetching user task " + error,
+      message: "Server error while fetching user task ",
     });
   }
 };

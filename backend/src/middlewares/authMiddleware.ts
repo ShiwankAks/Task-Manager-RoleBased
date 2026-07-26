@@ -6,7 +6,7 @@ const verifyToken = async (req:Request,res:Response,next:NextFunction) => {
     try {
         const token = req.header("Authorization")?.replace("Bearer ","")
         if (!token) {
-            return res.status(401).json({message:"Unautherized access"})
+            return res.status(401).json({message:"Unauthorized access"})
         }
         const decodedToken =jwt.verify(token,process.env.JWT_SECRET!) as CustomJwtPayload;
         req.user = decodedToken

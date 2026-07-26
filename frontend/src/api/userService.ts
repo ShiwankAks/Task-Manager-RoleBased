@@ -7,7 +7,7 @@ export const userService = {
         const response = await apiClient.get("/user/all-users")
         return response.data.data
     },
-    deleteUsers : async(userId:string)=>{
+    deleteUser : async(userId:string)=>{
         const response = await apiClient.delete(`/user/delete-user/${userId}`)
         return response.data
     },

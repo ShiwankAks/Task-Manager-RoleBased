@@ -8,6 +8,7 @@ const connectDb = async () => {
             await mongoose.connect(`${process.env.MONGODB_URI}/task-manager`)
         } catch (error: any) {
             console.log("Error while connecting to mongoDB : " + error)
+            process.exit(1)
         }
 }
 

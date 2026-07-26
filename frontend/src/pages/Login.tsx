@@ -1,9 +1,9 @@
-import axios from "axios"
 import { jwtDecode } from "jwt-decode"
 import React, { useState } from "react"
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom"
 import { LoadingSpinner } from "../components/LoadingSpinner";
+import { authService } from "../api/authService";
 
 interface JwtPayload {
     id: string,
@@ -12,7 +12,6 @@ interface JwtPayload {
     exp: number
 }
 
-const Api = import.meta.env.VITE_API_URL
 
 export const Login = () => {
 
@@ -26,12 +25,8 @@ export const Login = () => {
         e.preventDefault()
         setIsLoading(true)
         try {
-            const response = await axios.post(Api + "/auth/login", {
-                email, password
-            })
+            const response = await authService.login(email,password)
             const { token, message } = response.data
-
-
 
             const decoded = jwtDecode<JwtPayload>(token)
             localStorage.setItem("token", token)

@@ -29,8 +29,10 @@ export const Users = () => {
     }
 
     const deleteEmployee = async (userId: string) => {
+        const isConfirm = window.confirm("Are you sure you want to delete this user?")
+        if (!isConfirm) return;
         try {
-            await userService.deleteUsers(userId)
+            await userService.deleteUser(userId)
             getEmployees()
             toast.success("Employee deleted successfully")
         } catch (error: any) {
@@ -42,6 +44,7 @@ export const Users = () => {
         try {
             await userService.changeUserRole(userId,newRole)
             getEmployees()
+            toast.success("Employee role changed successfully")
         } catch (error: any) {
             toast.error(error.response?.data?.message|| "Could not change employee role")
         }
