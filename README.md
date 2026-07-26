@@ -1,332 +1,392 @@
-# Task Management System
+# 🚀 Task Manager – Role Based Access Control (RBAC)
 
-A modern **Role-Based Task Management System** built with the **MERN Stack** (React, Node.js, Express, MongoDB) using **TypeScript**. The application enables organizations to manage employees, assign tasks, track progress, and control user permissions through a secure role-based authentication system.
+> A production-oriented full-stack task management application built with the MERN ecosystem, featuring JWT authentication, Role-Based Access Control (RBAC), secure REST APIs, Redis integration, and a modern React frontend.
 
----
-
-## Features
-
-### Authentication & Authorization
-
-- JWT-based authentication
-- Secure password hashing using bcrypt
-- Protected API routes
-- Role-Based Access Control (RBAC)
-
-### User Roles
-
-#### Admin
-
-- Create and assign tasks
-- Delete tasks
-- Delete users
-- Change user roles
-- View all users
-- View all tasks
-
-#### Manager
-
-- View all users
-- View all tasks
-- Update task priorities
-
-#### Employee
-
-- View assigned tasks
-- Update task status
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-blue?logo=react" />
+  <img src="https://img.shields.io/badge/TypeScript-6-blue?logo=typescript" />
+  <img src="https://img.shields.io/badge/Express-5-black?logo=express" />
+  <img src="https://img.shields.io/badge/MongoDB-Mongoose-green?logo=mongodb" />
+  <img src="https://img.shields.io/badge/Redis-Rate%20Limiting-red?logo=redis" />
+  <img src="https://img.shields.io/badge/JWT-Authentication-orange" />
+  <img src="https://img.shields.io/badge/License-MIT-blue" />
+</p>
 
 ---
 
-## Tech Stack
+## 📖 Overview
 
-### Frontend
+This project is a secure task management platform where users are assigned different roles with different permissions.
+
+The backend follows a production-oriented architecture using Express, TypeScript, MongoDB, JWT Authentication, Role-Based Authorization, and Redis. The frontend is built with React, TypeScript, Vite, Tailwind CSS, and Axios.
+
+The application demonstrates real-world backend concepts such as:
+
+- Authentication
+- Authorization
+- Protected APIs
+- Middleware Architecture
+- Secure Password Storage
+- REST API Design
+- Role-Based Access Control
+- Redis Rate Limiting
+
+---
+
+# ✨ Features
+
+## 🔐 Authentication
+
+- User Registration
+- Secure Login
+- JWT Authentication
+- Password Hashing using bcrypt
+- Protected Routes
+- Token Verification Middleware
+
+---
+
+## 👥 Role Based Access Control (RBAC)
+
+Three user roles are supported:
+
+| Role | Permissions |
+|------|-------------|
+| **Admin** | Full system access |
+| **Manager** | Manage tasks and employees |
+| **Employee** | View and update assigned tasks |
+
+---
+
+## ✅ Task Management
+
+- Create Task
+- Delete Task
+- Assign Tasks
+- Change Task Priority
+- Update Task Status
+- View Assigned Tasks
+- View All Tasks
+
+---
+
+## 👨‍💼 User Management
+
+Admins can:
+
+- Delete Users
+- Change User Roles
+
+Managers can:
+
+- View Employees
+
+Employees can:
+
+- View their assigned tasks
+
+---
+
+## 🛡 Security Features
+
+- JWT Authentication
+- Password Hashing (bcrypt)
+- Role Based Authorization
+- Helmet Security Headers
+- CORS Protection
+- Input Validation
+- Redis Rate Limiting
+- Protected REST Endpoints
+
+---
+
+# 🏗 Tech Stack
+
+## Frontend
 
 - React 19
 - TypeScript
 - Vite
-- Tailwind CSS v4
+- Tailwind CSS
 - React Router
 - Axios
 - React Hot Toast
 
-### Backend
+---
+
+## Backend
 
 - Node.js
-- Express.js
+- Express 5
 - TypeScript
 - MongoDB
 - Mongoose
-- JWT Authentication
+- Redis
+- JWT
 - bcrypt
+- Helmet
 
 ---
 
-## Project Structure
+# 📂 Project Structure
 
-```text
+```
 Task-Manager/
-
+│
 ├── frontend/
 │   ├── src/
-│   ├── public/
-│   └── package.json
+│   ├── api/
+│   ├── components/
+│   ├── pages/
+│   ├── assets/
+│   └── App.tsx
 │
 ├── backend/
 │   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── middlewares/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   └── types/
-│   └── package.json
+│   │
+│   ├── config/
+│   │     ├── mongodb.ts
+│   │     └── redis.ts
+│   │
+│   ├── controllers/
+│   │
+│   ├── middlewares/
+│   │     ├── authMiddleware.ts
+│   │     ├── roleMiddleware.ts
+│   │     └── rateLimiter.ts
+│   │
+│   ├── models/
+│   ├── routes/
+│   ├── types/
+│   └── index.ts
 │
 └── README.md
 ```
 
 ---
 
-## Core Functionalities
+# 🏛 Backend Architecture
 
-### Authentication
-
-- User Registration
-- User Login
-- JWT Token Generation
-- Protected Routes
-
-### Task Management
-
-- Create Tasks
-- Assign Tasks
-- Update Task Status
-- Change Task Priority
-- Delete Tasks
-- View Personal Tasks
-- View Organization Tasks
-
-### User Management
-
-- View Users
-- Delete Users
-- Update User Roles
+```
+                Client
+                   │
+                   ▼
+              Express Server
+                   │
+        ┌──────────┴──────────┐
+        │                     │
+        ▼                     ▼
+ Authentication         Rate Limiter
+        │                     │
+        ▼                     ▼
+ Authorization        Redis (Cache)
+        │
+        ▼
+ Controllers
+        │
+        ▼
+ MongoDB Database
+```
 
 ---
 
-## API Overview
+# 🔐 Authorization Flow
 
-### Authentication
+```
+Login
+   │
+   ▼
+Generate JWT
+   │
+   ▼
+Client Stores Token
+   │
+   ▼
+Protected Request
+   │
+   ▼
+Verify JWT
+   │
+   ▼
+Check User Role
+   │
+   ▼
+Authorized?
+ │        │
+Yes      No
+ │        │
+ ▼        ▼
+Controller 403
+```
+
+---
+
+# 📡 API Endpoints
+
+## Authentication
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| POST | `/auth/register` | Register new user |
-| POST | `/auth/login` | User login |
+| POST | `/api/auth/register` | Register user |
+| POST | `/api/auth/login` | Login user |
 
 ---
 
-### Users
+## User
 
 | Method | Endpoint | Access |
 |---------|----------|--------|
-| GET | `/user/all-users` | Admin, Manager |
-| DELETE | `/user/delete-user/:id` | Admin |
-| POST | `/user/change-role/:id` | Admin |
+| GET | `/api/user/all-users` | Admin, Manager |
+| DELETE | `/api/user/delete-user/:id` | Admin |
+| PATCH | `/api/user/change-role/:id` | Admin |
 
 ---
 
-### Tasks
+## Tasks
 
 | Method | Endpoint | Access |
 |---------|----------|--------|
-| POST | `/user/add-task` | Admin |
-| GET | `/user/all-task` | Admin, Manager |
-| GET | `/user/my-task` | Employee |
-| POST | `/user/change-status/:taskId` | Employee |
-| POST | `/user/change-priority/:id` | Admin, Manager |
-| DELETE | `/user/delete/:id` | Admin |
+| POST | `/api/user/add-task` | Admin |
+| GET | `/api/user/all-task` | Admin, Manager |
+| GET | `/api/user/my-task` | Employee |
+| PATCH | `/api/user/change-priority/:id` | Admin, Manager |
+| PATCH | `/api/user/change-status/:taskId` | Employee |
+| DELETE | `/api/user/delete/:id` | Admin |
 
 ---
 
-## Installation
+# 🔑 Environment Variables
 
-### Clone Repository
+## Backend
 
-```bash
-
-cd task-manager
-```
-
----
-
-## Backend Setup
-
-Navigate to backend:
-
-```bash
-cd backend
-```
-
-Install dependencies
-
-```bash
-npm install
-```
-
-or
-
-```bash
-bun install
-```
-
-Create a `.env` file
+Create `.env`
 
 ```env
 PORT=5000
 
-MONGODB_URI=your_mongodb_connection_string
+MONGODB_URI=your_mongodb_uri
 
-JWT_SECRET=your_secret_key
-```
+JWT_SECRET=your_secret
 
-Run development server
+CLIENT_URL=http://localhost:5173
 
-```bash
-npm run start
-```
-
-or
-
-```bash
-bun run dev
+REDIS_URL=your_redis_url
 ```
 
 ---
 
-## Frontend Setup
-
-Navigate to frontend
-
-```bash
-cd frontend
-```
-
-Install dependencies
-
-```bash
-npm install
-```
-
-Create `.env`
+## Frontend
 
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-Run
+---
+
+# ⚙ Installation
+
+## Clone Repository
 
 ```bash
+git clone https://github.com/ShiwankAks/Task-Manager-RoleBased.git
+```
+
+---
+
+## Backend
+
+```bash
+cd backend
+
+npm install
+
 npm run dev
 ```
 
 ---
 
-## Security Features
+## Frontend
 
-- Password hashing using bcrypt
-- JWT Authentication
-- Protected API routes
-- Role-based authorization middleware
-- Environment variable configuration
-- Secure middleware architecture
+```bash
+cd frontend
 
----
+npm install
 
-## Tech Concepts Demonstrated
-
-- REST API Development
-- JWT Authentication
-- Role-Based Access Control (RBAC)
-- Express Middleware
-- MongoDB Relationships
-- React State Management
-- API Integration using Axios
-- TypeScript
-- Modular Folder Structure
-- CRUD Operations
+npm run dev
+```
 
 ---
 
-## Future Improvements
+# 🔒 Middleware Used
+
+- Authentication Middleware
+- Role Authorization Middleware
+- Redis Rate Limiter
+- Helmet
+- CORS
+- JSON Parser
+
+---
+
+# 🚀 Future Improvements
 
 - Refresh Token Authentication
 - Email Verification
 - Password Reset
-- File Attachments
-- Comments on Tasks
+- Swagger / OpenAPI Documentation
+- Docker Support
+- Unit & Integration Testing
 - Activity Logs
+- Audit Trail
+- WebSocket Notifications
+- File Uploads
 - Search & Filtering
 - Pagination
-- Dashboard Analytics
-- Notifications
-- Unit & Integration Tests
-- Docker Support
+- Soft Delete
+- Zod Validation
+- Redis Caching
 - CI/CD Pipeline
-- AWS Deployment
 
 ---
 
-## Environment Variables
+# 💡 Key Learning Outcomes
 
-### Backend
+This project demonstrates practical implementation of:
 
-```env
-PORT=
-
-MONGODB_URI=
-
-JWT_SECRET=
-```
-
-### Frontend
-
-```env
-VITE_API_URL=
-```
+- RESTful API Design
+- Authentication & Authorization
+- JWT Security
+- Role Based Access Control (RBAC)
+- Middleware Design
+- MongoDB Relationships
+- Express Best Practices
+- TypeScript Backend Development
+- Redis Integration
+- Production-Oriented Folder Structure
 
 ---
 
-## Deployment
+# 🤝 Contributing
 
-Frontend can be deployed using:
+Contributions, issues, and feature requests are welcome.
 
-- Vercel
-- Netlify
-
-Backend can be deployed using:
-
-- Render
-- Railway
-- AWS EC2
-- DigitalOcean
-
-Database:
-
-- MongoDB Atlas
+Feel free to fork the repository and submit a Pull Request.
 
 ---
 
-## Author
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 👨‍💻 Author
 
 **Shiwank Aks**
 
-Full Stack Developer (MERN)
-
-GitHub: https://github.com/ShiwankAks
-
-LinkedIn: https://linkedin.com/in/shiwank-aks/
+- GitHub: https://github.com/ShiwankAks
+- LinkedIn: https://www.linkedin.com/in/shiwank-aks/
 
 ---
 
-## License
-
-This project is licensed under the MIT License.
+⭐ If you found this project helpful, consider giving it a star!
