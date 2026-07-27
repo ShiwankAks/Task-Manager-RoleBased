@@ -9,7 +9,7 @@ import helmet from "helmet"
 
 const port = process.env.PORT || 3000
 const app =express()
-connectDb()
+await connectDb()
 try {
   await redis.connect()
 } catch (error) {
