@@ -1,17 +1,21 @@
 import express from "express"
-import dotenv from "dotenv"
+import "dotenv/config";
 import cors from 'cors'
 import connectDb from "./config/mongodb"
 import type{ Request,Response } from "express"
 import { redis } from "./config/redis"
 import helmet from "helmet"
 
-dotenv.config()
 
 const port = process.env.PORT || 3000
 const app =express()
 connectDb()
-await redis.connect()
+try {
+  await redis.connect()
+} catch (error) {
+  console.error("Redis connection failed , "+error)
+}
+
 app.set("trust proxy", 1);
 
 // Middlewares

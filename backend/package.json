@@ -1,6 +1,5 @@
 {
   "name": "backend",
-  "module": "index.ts",
   "type": "module",
   "private": true,
   "devDependencies": {
@@ -14,7 +13,7 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "dev": "bun --dns=node --watch --preload ./patch.ts src/index.ts",
+     "dev": "tsx watch src/index.ts",
     "start": "tsx src/index.ts"
   },
   "dependencies": {
