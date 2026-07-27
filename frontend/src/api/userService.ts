@@ -12,7 +12,7 @@ export const userService = {
         return response.data
     },
     changeUserRole: async(userId:string ,newRole: Employee["role"])=>{
-        const response = await apiClient.post(`/user/change-role/${userId}`,{role:newRole})
+        const response = await apiClient.patch(`/user/change-role/${userId}`,{role:newRole})
         return response.data
     }
 }

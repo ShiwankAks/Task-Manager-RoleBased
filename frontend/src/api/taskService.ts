@@ -19,12 +19,12 @@ export const taskService = {
     },
 
     updatePriority : async(id:string,priority:string )=>{
-        const response = await apiClient.post(`/user/change-priority/${id}`,{priority})
+        const response = await apiClient.patch(`/user/change-priority/${id}`,{priority})
         return response.data
     },
 
     changeStatus:async(taskId:string, newStatus: TaskItem["status"])=>{
-        const response = await apiClient.post(`/user/change-status/${taskId}`,{status:newStatus})
+        const response = await apiClient.patch(`/user/change-status/${taskId}`,{status:newStatus})
         return response.data
     },
 
